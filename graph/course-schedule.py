@@ -1,17 +1,13 @@
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        if numCourses < 0 or prerequisites is None:
-            return False
-        if numCourses == 0 or not prerequisites:
-            return True
         graph = defaultdict(list)
         indegree = [0] * numCourses
         queue = []
         count = 0
 
-        for crs, pre in prerequisites:
-            graph[pre].append(crs)
-            indegree[crs] += 1
+        for dest, src in prerequisites:
+            graph[src].append(dest)
+            indegree[dest] += 1
 
         for i in range(numCourses):
             if indegree[i] == 0:
