@@ -6,8 +6,8 @@ class Solution:
         count = 1
 
         for crs, pre in prerequisites:
-            graph[pre].append(crs)
-            indegree[crs] += 1
+            graph[crs].append(pre)
+            indegree[pre] += 1
         
 
         for i in range(numCourses):
