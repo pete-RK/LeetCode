@@ -5,7 +5,7 @@ class Solution:
         queue = []
         count = 0
 
-        for dest, src in prerequisites:
+        for src, dest in prerequisites:
             graph[src].append(dest)
             indegree[dest] += 1
 
