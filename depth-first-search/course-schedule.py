@@ -7,7 +7,7 @@ class Solution:
         graph = defaultdict(list)
         indegree = [0] * numCourses
         queue = []
-        count = 1
+        count = 0
 
         for crs, pre in prerequisites:
             graph[pre].append(crs)
@@ -24,7 +24,7 @@ class Solution:
             for nei in graph[node]:
                 indegree[nei] -= 1
                 if indegree[nei] == 0:
-                    del indegree[nei]
+                    queue.append(nei)
         
         return count == numCourses
 
