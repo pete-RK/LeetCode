@@ -19,7 +19,7 @@ class Solution:
             for dr, dc in directions:
                 nextRow = currRow + dr
                 nextCol = currCol + dc
-                if 0 <= nextRow < n and 0 <= nextCol < m and dp[nextRow][nextCol] == INF:
+                if 0 <= nextRow < n and 0 <= nextCol < m and dp[nextRow][nextCol] > currTime:
                     cost  = (currRow + currCol) % 2 + 1
                     start = max(moveTime[nextRow][nextCol], currTime)
                     nextTime = start + cost
