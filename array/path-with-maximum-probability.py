@@ -1,27 +1,30 @@
 class Solution:
-    def maxProbability(self, n: int, edges: List[List[int]], succProb: List[float], start_node: int, end_node: int) -> float:
+    def maxProbability(self, n: int, edges: List[List[int]], succProb: List[float], src: int, dest: int) -> float:
         graph = defaultdict(list)
 
-        for i in range(len(edges)):
-            graph[edges[i][0]].append([edges[i][1], succProb[i]])
-            graph[edges[i][1]].append([edges[i][0], succProb[i]])
+        for ind, curr in enumerate(edges):
+            u, v = curr[0], curr[-1]
+            graph[u].append([v, succProb[ind]])
+            graph[v].append([u, succProb[ind]])
         
-        max_prob = [-math.inf]*n
-        max_prob[start_node] = 1.00
-
-        heap = [(-1.00, start_node)]
+        heap = [(-1, src)]
+        probs = [-math.inf] * n
+        probs[src] = 1
 
         while heap:
             prob, node = heappop(heap)
-            if -prob < max_prob[node]: continue
-            if node == end_node:
+
+            if probs[node] < -prob:
+                continue
+            
+            if node == dest:
                 return -prob
             
-            for dest, p in graph[node]:
+            for nei, p in graph[node]:
                 new_prob = -prob * p
-                if new_prob > max_prob[dest]:
-                    max_prob[dest] = new_prob
-                    heappush(heap, (-new_prob, dest))
+                if new_prob > probs[nei]:
+                    probs[nei] = new_prob
+                    heappush(heap, (-new_prob, nei))
         
         return 0.00
             
